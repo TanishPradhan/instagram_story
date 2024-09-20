@@ -1,4 +1,4 @@
-# Stage_Assignment_Project
+# Instagram Story
 
 This project is a Single Page Application that displays stories (images and videos) similar to popular social media platforms. The app is built using BLoC for state management, ensuring a clear separation of business logic and UI, while maintaining high scalability and maintainability.
 
