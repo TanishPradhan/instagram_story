@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+// A custom widget to display multiple story progress bars in a row.
 class StoryProgressBar extends StatelessWidget {
   StoryProgressBar({super.key, required this.percentValue});
 
@@ -24,6 +25,8 @@ class StoryProgressBar extends StatelessWidget {
   }
 }
 
+
+// This widget creates a custom progress bar with a specified percentage.
 class RProgressBar extends StatelessWidget {
   double percentValue = 0.1;
 

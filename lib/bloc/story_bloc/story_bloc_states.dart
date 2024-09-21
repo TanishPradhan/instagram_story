@@ -21,3 +21,9 @@ class SuccessStoryFetchingState extends StoryState {
 class ErrorStoryFetchingState extends StoryState {
   const ErrorStoryFetchingState();
 }
+
+class SuccessStoryViewInitialState extends StoryState {
+  final List<double> percentValue;
+
+  const SuccessStoryViewInitialState({required this.percentValue});
+}

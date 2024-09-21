@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stage_project/screens/story_view.dart';
+import 'package:stage_project/widgets/reusable_widgets/story_widget.dart';
 import '../models/story_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Future<void> didChangeDependencies() async {
+    //Pre-Caching Images for better performance of the app
     for (var url in widget.storyList) {
       for (var image in url.stories) {
         if (image.type == FileType.image) {
@@ -51,84 +52,26 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 110,
               child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.storyList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => StoryView(
-                                  stories: widget.storyList,
-                                  currentIndex: index,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 87,
-                                width: 87,
-                                margin: const EdgeInsets.only(left: 8.0),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.topRight,
-                                    stops: [0.1, 0.4, 0.7],
-                                    colors: [
-                                      Colors.yellow,
-                                      Colors.red,
-                                      Colors.pink,
-                                    ],
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Container(
-                                    height: 80,
-                                    width: 80,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.lightBlue,
-                                      border: Border.all(
-                                          color: Colors.white,
-                                          width: 2.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          widget.storyList[index]
-                                              .userDisplayPicture,
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                child: Text(
-                                  widget.storyList[index].userName,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.storyList.length,
+                itemBuilder: (context, index) {
+                  return StoryWidget(
+                    storyDetail: widget.storyList[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => StoryView(
+                            stories: widget.storyList,
+                            currentIndex: index,
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             )
           ],
         ),

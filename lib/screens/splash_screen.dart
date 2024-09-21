@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     storyBloc = StoryBloc();
-    storyBloc.add(const FetchStoriesEvent());
+    storyBloc.add(FetchStoriesEvent(context: context));
     super.initState();
   }
 
@@ -31,13 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
       body: BlocProvider(
         create: (context) => storyBloc,
         child: BlocListener<StoryBloc, StoryState>(
-          listener: (context, state) async {
+          listener: (context, state) {
             if (state is SuccessStoryFetchingState) {
               storyList = state.storyList;
-              for (var url in storyList) {
-                await precacheImage(
-                    NetworkImage(url.userDisplayPicture), context);
-              }
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
